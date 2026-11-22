@@ -42,11 +42,11 @@ bootstrap: ## Attempt to install system dependencies
 
 .PHONY: doctor
 doctor:  ## Confirm system dependencies are available
-	bin/verchew --exit-code
+	uv run $(if $(CI),--locked) python bin/verchew --exit-code
 
 # PROJECT DEPENDENCIES ########################################################
 
-DEPENDENCIES := $(VIRTUAL_ENV)/.uv-$(shell bin/checksum pyproject.toml uv.lock)
+DEPENDENCIES := $(VIRTUAL_ENV)/.uv-$(shell uv run --no-project python bin/checksum pyproject.toml uv.lock)
 
 .PHONY: install
 install: $(DEPENDENCIES) .cache
