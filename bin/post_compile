@@ -10,9 +10,9 @@ puts-step() {
   echo "-----> $@"
 }
 
-puts-step "Installing dependencies with poetry"
-poetry install | indent
+puts-step "Installing dependencies with uv"
+uv sync --locked | indent
 
 puts-step "Generating HTML from requirements"
 touch .mockvcs
-poetry run doorstop publish all public | indent
+uv run doorstop publish all public | indent

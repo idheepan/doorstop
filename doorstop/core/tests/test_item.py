@@ -1176,9 +1176,11 @@ class TestSaveSkipsIdentical(unittest.TestCase):
         for (folder, name, itemformat), end in itertools.product(
             self.CASES, ["\n", "\r\n"]
         ):
-            with self.subTest(itemformat=itemformat, end=repr(end)), patch(
-                "doorstop.settings.WRITE_LINESEPERATOR", end
-            ), patch("doorstop.settings.ADDREMOVE_FILES", True):
+            with (
+                self.subTest(itemformat=itemformat, end=repr(end)),
+                patch("doorstop.settings.WRITE_LINESEPERATOR", end),
+                patch("doorstop.settings.ADDREMOVE_FILES", True),
+            ):
                 item = self._item(folder, name, itemformat)
                 item.save()  # normalize the fixture
                 with patch("doorstop.common.write_text") as mock_write:

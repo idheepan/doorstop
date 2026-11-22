@@ -17,10 +17,10 @@ $ pip install doorstop
     $ pip install --pre doorstop
     ```
 
-Alternatively, add it to your [Poetry](https://python-poetry.org/) project:
+Alternatively, add it to your [uv](https://docs.astral.sh/uv/) project:
 
 ```sh
-$ poetry add doorstop
+$ uv add doorstop
 ```
 
 After installation, Doorstop is available on the command-line:

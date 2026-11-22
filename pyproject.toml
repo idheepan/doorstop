@@ -1,19 +1,15 @@
-[tool.poetry]
+[project]
 
 name = "doorstop"
 version = "3.2"
 description = "Requirements management using version control."
 
-license = "LGPLv3"
+license = "LGPL-3.0-only"
+license-files = ["LICENSE.md"]
 
-authors = ["Jace Browning <jacebrowning@gmail.com>"]
+authors = [{ name = "Jace Browning", email = "jacebrowning@gmail.com" }]
 
 readme = "README.md"
-exclude = ["**/tests/**"]
-
-homepage = "https://pypi.org/project/Doorstop"
-documentation = "https://doorstop.readthedocs.io"
-repository = "https://github.com/doorstop-dev/doorstop"
 
 keywords = [
   "requirements-management",
@@ -28,7 +24,6 @@ keywords = [
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Environment :: Console",
-    "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
@@ -42,62 +37,70 @@ classifiers = [
     "Topic :: Text Processing :: Markup",
 ]
 
-[tool.poetry.dependencies]
+requires-python = ">=3.10,<3.15"
 
-python = ">=3.10,<3.15"
+dependencies = [
+    "pyyaml>=6.0,<7",
+    "markdown>=3.3.3,<4",
+    "bottle>=0.13.4,<0.14",
+    "requests>=2.0,<3",
+    "python-frontmatter>=1.0,<2",
+    "python-markdown-math>=0.6,<0.10",
+    "plantuml-markdown>=3.4.2,<4",
+    "six", # fixes https://github.com/dougn/python-plantuml/issues/11
+    "openpyxl>=3.1.2",
+    "verchew>=3.4.2,<4",
+]
 
-pyyaml = "^6.0"
-markdown = "^3.3.3"
-bottle = "~0.13.4"
-requests = "^2.0"
-python-frontmatter = "^1.0"
-python-markdown-math = ">=0.6,<0.10"
-plantuml-markdown = "^3.4.2"
-six = "*" # fixes https://github.com/dougn/python-plantuml/issues/11
-openpyxl = ">=3.1.2"
-verchew = "^3.4.2"
+[project.urls]
 
-[tool.poetry.group.dev.dependencies]
+Homepage = "https://pypi.org/project/Doorstop"
+Documentation = "https://doorstop.readthedocs.io"
+Repository = "https://github.com/doorstop-dev/doorstop"
 
-# Formatters
-black = ">=24.3,<27.0"
-isort = ">=5.12,<10.0"
-
-# Linters
-mypy = ">=1.1.1"
-pydocstyle = "*"
-pylint = ">=3.2,<4.2"
-types-markdown = "*"
-types-pyyaml = "*"
-types-requests = "*"
-types-setuptools = "*"
-
-# Testing
-pytest = ">=8.4,<10.0"
-pytest-cov = "*"
-pytest-expecter = "*"
-pytest-sugar = "*"
-webtest = "^3.0.7"
-diff-cover = ">=8.0.3,<11.0.0"
-
-# Reports
-coveragespace = "^6.1"
-
-# Documentation
-mkdocs = "^1.5"
-pygments = "*"
-
-# Tooling
-pyinstaller = "^6.21"
-sniffer = "*"
-pync = { version = "*", platform = "darwin" }
-rope = "*"
-
-[tool.poetry.scripts]
+[project.scripts]
 
 doorstop = "doorstop.cli.main:main"
 doorstop-gui = "doorstop.gui.main:main"
 doorstop-server = "doorstop.server.main:main"
+
+[dependency-groups]
+
+dev = [
+    # Formatters
+    "black>=24.3,<27.0",
+    "isort>=5.12,<10.0",
+
+    # Linters
+    "mypy>=1.1.1",
+    "pydocstyle",
+    "pylint>=3.2,<4.2",
+    "types-markdown",
+    "types-pyyaml",
+    "types-requests",
+    "types-setuptools",
+
+    # Testing
+    "pytest>=8.4,<10.0",
+    "pytest-cov",
+    "pytest-expecter",
+    "pytest-sugar",
+    "webtest>=3.0.7,<4",
+    "diff-cover>=8.0.3,<11.0.0",
+
+    # Reports
+    "coveragespace>=6.1,<7",
+
+    # Documentation
+    "mkdocs>=1.5,<2",
+    "pygments",
+
+    # Tooling
+    "pyinstaller>=6.21,<7",
+    "sniffer",
+    "pync; sys_platform == 'darwin'",
+    "rope",
+]
 
 [tool.black]
 
@@ -109,5 +112,11 @@ profile = "black"
 
 [build-system]
 
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["uv_build>=0.13.9,<0.14"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+
+module-root = ""
+source-exclude = ["**/tests/**"]
+wheel-exclude = ["**/tests/**"]

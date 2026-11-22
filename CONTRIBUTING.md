@@ -7,7 +7,7 @@
     * Linux: [https://www.gnu.org/software/make](https://www.gnu.org/software/make)
     * Windows: [https://mingw.org/download/installer](https://mingw.org/download/installer)
 * Python: `$ pyenv install`
-* Poetry: [https://python-poetry.org/docs/#installation](https://python-poetry.org/docs/#installation)
+* uv: [https://docs.astral.sh/uv/getting-started/installation/](https://docs.astral.sh/uv/getting-started/installation/)
 * Graphviz:
     * macOS: `$ brew install graphviz`
     * Linux: [https://graphviz.org/download](https://graphviz.org/download/)

@@ -530,9 +530,10 @@ class TestValidateBatching(unittest.TestCase):
         expected = sorted(
             item.path for document in self.tree for item in document if item.active
         )
-        with patch.object(MockWorkingCopy, "edit") as mock_edit, patch.object(
-            MockWorkingCopy, "edit_many"
-        ) as mock_edit_many:
+        with (
+            patch.object(MockWorkingCopy, "edit") as mock_edit,
+            patch.object(MockWorkingCopy, "edit_many") as mock_edit_many,
+        ):
             self.tree.validate()
         mock_edit.assert_not_called()
         staged = [path for args, _ in mock_edit_many.call_args_list for path in args[0]]
@@ -559,9 +560,10 @@ class TestValidateBatching(unittest.TestCase):
     @patch("doorstop.settings.ADDREMOVE_FILES", False)
     def test_no_batch_without_addremove(self):
         """Verify nothing is staged when files are not added automatically."""
-        with patch.object(MockWorkingCopy, "batch_edits") as mock_batch, patch.object(
-            MockWorkingCopy, "edit"
-        ) as mock_edit:
+        with (
+            patch.object(MockWorkingCopy, "batch_edits") as mock_batch,
+            patch.object(MockWorkingCopy, "edit") as mock_edit,
+        ):
             self.tree.validate()
         mock_batch.assert_not_called()
         mock_edit.assert_not_called()
@@ -587,9 +589,10 @@ class TestReorderBatching(unittest.TestCase):
     @patch("doorstop.settings.ADDREMOVE_FILES", True)
     def test_reorder_stages_in_one_call(self):
         """Verify renumbering stages every item of the document in one call."""
-        with patch.object(MockWorkingCopy, "edit") as mock_edit, patch.object(
-            MockWorkingCopy, "edit_many"
-        ) as mock_edit_many:
+        with (
+            patch.object(MockWorkingCopy, "edit") as mock_edit,
+            patch.object(MockWorkingCopy, "edit_many") as mock_edit_many,
+        ):
             self.document.reorder()
         mock_edit.assert_not_called()
         mock_edit_many.assert_called_once_with(self.expected)
@@ -597,9 +600,10 @@ class TestReorderBatching(unittest.TestCase):
     @patch("doorstop.settings.ADDREMOVE_FILES", False)
     def test_reorder_without_addremove(self):
         """Verify renumbering stages nothing when files are not added automatically."""
-        with patch.object(MockWorkingCopy, "batch_edits") as mock_batch, patch.object(
-            MockWorkingCopy, "edit"
-        ) as mock_edit:
+        with (
+            patch.object(MockWorkingCopy, "batch_edits") as mock_batch,
+            patch.object(MockWorkingCopy, "edit") as mock_edit,
+        ):
             self.document.reorder()
         mock_batch.assert_not_called()
         mock_edit.assert_not_called()
