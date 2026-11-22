@@ -218,7 +218,7 @@ class Document(BaseValidatable, BaseFileObject):  # pylint: disable=R0902
                         key, self.config
                     )
                     raise DoorstopError(msg)
-            except (AttributeError, TypeError, ValueError):
+            except AttributeError, TypeError, ValueError:
                 msg = "invalid value for '{}' in: {}".format(key, self.config)
                 raise DoorstopError(msg)
         # Store parsed attributes

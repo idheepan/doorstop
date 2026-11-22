@@ -141,7 +141,7 @@ def literal_eval(literal, error=None, default=None):
     """
     try:
         return ast.literal_eval(literal) if literal else default
-    except (SyntaxError, ValueError):
+    except SyntaxError, ValueError:
         msg = "invalid Python literal: {}".format(literal)
         if error:
             error(msg)
